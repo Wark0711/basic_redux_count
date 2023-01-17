@@ -1,26 +1,33 @@
-import React from 'react'
 import './App.css'
-import './First.css'
-import './Second.css'
-import './Third.css'
-import './Fourth.css'
-import Navbar from './components/Navbar'
-import Firstcomp from './components/Firstcomp'
-import Secondcomp from './components/Secondcomp'
-import Thirdcomp from './components/Thirdcomp'
-import Fourthcomp from './components/Fourthcomp'
+import { useState, useEffect } from "react";
+import { connect } from "react-redux";
+function App(props) {
+  console.log(props)
+  const handleInc = (e) => {
+    props.dispatch({
+      type: 'INCREMENT'
+    })
+  }
 
-function App() {
+  const handleDec = (e) => {
+    props.dispatch({
+      type: 'DECREMENT'
+    })
+  }
 
   return (
     <div className="App">
-      <Navbar />
-      <Firstcomp />
-      <Secondcomp />
-      <Thirdcomp />
-      <Fourthcomp />
+      <div><button onClick={handleInc}>+</button></div>
+      <div>{props.count}</div>
+      <div><button onClick={handleDec}>-</button></div>
     </div>
   )
 }
 
-export default App
+const mapStateToProps = (state => {
+  return {
+    count: state.count
+  }
+})
+
+export default connect(mapStateToProps)(App)
